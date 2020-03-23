@@ -1,0 +1,74 @@
+@import '~bootstrap/scss/bootstrap.scss';
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
+$dark : #343A40;
+$background:#222324;
+$purple: #6C3ADD;
+$dark-purple:#512087;
+$text-color:#9A9DA0;
+$text-color-hover: white;
+body{
+    background-color: $background;
+    font-family: 'Roboto Condensed', sans-serif;
+    color:$text-color;
+}
+.row{
+    margin-left: 0px;
+    margin-right: 0px;
+    }
+    .navbar{
+        margin-bottom: 15px;
+    }
+.image-circle{
+   
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+    
+    margin: 20px auto;
+  
+    
+}
+.card, .list-group-item{
+    background-color: $dark;
+    color:$text-color;
+    ;
+}
+
+.list-group-item:hover{
+    background-color: $dark;
+    color:$text-color-hover;
+}
+
+.search-input{
+position:absolute;
+padding-top:60px;
+z-index: 10;
+}
+.location-search-input{
+    text-overflow: ellipsis;
+    display: inline;
+    position: relative;
+}
+.map{
+   position: absolute;
+}
+.submit-button{
+    background-color: $purple;
+    border-color: $purple;
+}
+.submit-button:hover{
+    border-color: $dark-purple;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+.step { position: relative; min-height: 32px /* circle-size */ ; }
+.step > div:first-child { position: static; height: 0; }
+.step > div:last-child { margin-left: 32px ; padding-left: 16px; }
+.circle { background: $purple; width: 32px; height: 32px; line-height: 32px; border-radius: 16px; position: relative; color: white; text-align: center; }
+.line { position: absolute; border-left: 1px solid gainsboro; left: 16px; bottom: 10px; top: 42px; }
+.step:last-child .line { display: none; }
+.title { line-height: 32px; font-weight: bold; }
