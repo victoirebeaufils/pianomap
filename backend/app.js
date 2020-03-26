@@ -23,7 +23,7 @@ app.use((error, req, res, next) => {
   res.json({message: error.message || 'An unknown error occurred!'});
 });
 mongoose
-.connect('mongodb+srv://vbeaufil:Alain1996@cluster0-vvfpo.mongodb.net/mern?retryWrites=true&w=majority')
+.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0-vvfpo.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`)
 .then(()=>{app.listen(5000)})
 .catch( err =>{
   console.log(err);

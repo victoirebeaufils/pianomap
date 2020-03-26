@@ -1,14 +1,22 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import {BrowserRouter as Router, Route, Switch,Link } from "react-router-dom";
-import NewPlace from "./components/NewPlace";
+import LoadingSpinner from './components/LoadingSpinner';
+/*import NewPlace from "./components/NewPlace";
 import UserPlaces from "./components/UserPlaces";
 import Home from './components/Home';
 import Layout from './components/layout'
-import User from './components/User'
+*/
+
+const User = React.lazy(() =>import('./components/User'));
+const NewPlace = React.lazy(() =>import('./components/NewPlace'));
+const Home = React.lazy(() =>import('./components/Home'));
+const UserPlaces = React.lazy(() =>import('./components/UserPlaces'));
+
 const App =()=>{
   return(
     <Router>
-    <Switch>
+        <Suspense fallback={<div className="center"> <LoadingSpinner/></div>}>
+            <Switch>
             <Route exact path="/">
                 <Home/>
             </Route>
@@ -22,7 +30,7 @@ const App =()=>{
                 <UserPlaces/>
             </Route>
         </Switch>
-        
+        </Suspense>
         </Router>
   )
 }

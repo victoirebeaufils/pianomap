@@ -59,7 +59,12 @@ z-index: 10;
 .submit-button:hover{
     border-color: $dark-purple;
 }
-
+.submit-button:active{
+    border-color: $dark-purple;
+}
+.submit-button:focus{
+    border-color: $dark-purple;
+}
 *,
 *:before,
 *:after {
@@ -71,4 +76,5 @@ z-index: 10;
 .circle { background: $purple; width: 32px; height: 32px; line-height: 32px; border-radius: 16px; position: relative; color: white; text-align: center; }
 .line { position: absolute; border-left: 1px solid gainsboro; left: 16px; bottom: 10px; top: 42px; }
 .step:last-child .line { display: none; }
-.title { line-height: 32px; font-weight: bold; }
+.title { line-height: 32px; font-weight: bold; padding-bottom: 10px; }
+.body{ padding-bottom: 10px;}

@@ -29,11 +29,11 @@ return(
         <div class="body">
             <div class="row">
                 <p class="d-inline col-3">Type</p>
-        <input type="text" class="form-control d-inline col-9" placeholder="Username" aria-label="Steinway grand piano" aria-describedby="basic-addon1"/>
+        <input type="text" class="form-control d-inline col-9" placeholder="Steinway grand piano..." aria-label="Steinway grand piano" aria-describedby="basic-addon1"/>
         </div>
         <div class="row">
                 <p class="d-inline col-3">Condition</p>
-        <input type="text" class="form-control d-inline col-9" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"/>
+        <input type="text" class="form-control d-inline col-9" placeholder="Used, new..." aria-label="Username" aria-describedby="basic-addon1"/>
         </div>
         <div class="row">
                 <p class="d-inline col-3">Hours</p>
@@ -55,7 +55,7 @@ return(
     </select>
     </div>
     <p className="d-inline col-1">AM</p>
-    <div className="closing-hours d-inline col-3"></div>
+    <div className="closing-hours d-inline"></div>
     <select class="form-control  d-inline col-3" id="exampleFormControlSelect1">
       <option>01</option>
       <option>02</option>
@@ -91,13 +91,11 @@ return(
         <div class="line"></div>
     </div>
     <div>
-        <div class="title">Extra information</div>
-        <div class="body">
-           <form>
+        <div class="title"><form>
            <button type="submit" class="btn btn-primary submit-button">Submit</button>
-           </form>
-      </div>
-    </div>
+           </form></div>
+        </div>
+           
     </div>
     </Layout>
 
