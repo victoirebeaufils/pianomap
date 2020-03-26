@@ -55,7 +55,7 @@ return(
     loadingElement = {<div style={{height:"100%"}}/>}
     containerElement ={<div style={{height:"100%"}}/>}
     mapElement={<div style={{height:"100%"}}/>}
-    googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAKfnw-tK3FPlv2-7KVjIAPr2NSTMjN4F0`}
+    googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${env.process.GOOGLE_API_KEY}`}
     mapLat={mapLat} 
     mapLng={mapLng}
     parks = {parks}
