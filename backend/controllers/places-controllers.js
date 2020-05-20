@@ -34,6 +34,7 @@ const getPlaceById = async (req, res, next) => {
 };
 
 const getPlacesByUserId = async (req, res, next) => {
+ // console.log("req.params.uid: " + req.params.uid);
   const userId = req.params.uid;
 
   // let places;
@@ -64,19 +65,19 @@ const getPlacesByUserId = async (req, res, next) => {
 
 const createPlace = async (req, res, next) => {
   const errors = validationResult(req);
-  const errorsArray = erros.array();
-  console.log(errorsArray);
+  //const errorsArray = errors.array();
+  //console.log(errorsArray);
   if (!errors.isEmpty()) {
     return next(
       new HttpError('Invalid inputs passed, please check your data.', 422)
     );
   }
 
-  const { title, description, address } = req.body;
+  const { title, description, address, creator } = req.body;
 
   let coordinates;
   try {
-   // coordinates = await getCoordsForAddress(address);
+   coordinates = await getCoordsForAddress(address);
   } catch (error) {
     return next(error);
   }
@@ -86,16 +87,15 @@ const createPlace = async (req, res, next) => {
     description,
     address,
     location: coordinates,
-    image: req.file.path,
-    creator: req.userData.userId
+    creator: creator
   });
 
   let user;
   try {
-    user = await User.findById(req.userData.userId);
+    user = await User.findById(creator);
   } catch (err) {
     const error = new HttpError(
-      'Creating place failed, please try again.',
+      'Creating place failed, please try again. Could not find creator',
       500
     );
     return next(error);
@@ -109,7 +109,8 @@ const createPlace = async (req, res, next) => {
   console.log(user);
 
   try {
-    const sess = await mongoose.startSession();
+    console.log(createdPlace);
+     const sess = await mongoose.startSession();
     sess.startTransaction();
     await createdPlace.save({ session: sess });
     user.places.push(createdPlace);
@@ -117,9 +118,10 @@ const createPlace = async (req, res, next) => {
     await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
-      'Creating place failed, please try again.',
+      'Creating place failed, please try again. Mongoose sess thing i dont understand well',
       500
     );
+    console.log(err);
     return next(error);
   }
 
@@ -196,8 +198,6 @@ const deletePlace = async (req, res, next) => {
     return next(error);
   }
 
-  const imagePath = place.image;
-
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
@@ -213,9 +213,6 @@ const deletePlace = async (req, res, next) => {
     return next(error);
   }
 
-  fs.unlink(imagePath, err => {
-    console.log(err);
-  });
 
   res.status(200).json({ message: 'Deleted place.' });
 };

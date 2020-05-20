@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import WrappedMap from "./WrappedMap"
 import LocationSearchInput from "./LocationSearchInput"
-const MapContainer = () => {
+const MapContainer = (props) => {
+    const defaultMapLat = 0;
+    const defaultMapLng = 0;
     const [mapLat,setMapLat] = useState(0);
     const [mapLng, setMapLng] = useState(0);
     var count = 0;
@@ -49,15 +51,16 @@ return(
     </div>
     </div>
     </div>
-  
-    <div style={{width:'70vw',height:'70vh'}}>
+    
+    <div style={{width:props.width,height:props.height}}>
     <WrappedMap 
     loadingElement = {<div style={{height:"100%"}}/>}
     containerElement ={<div style={{height:"100%"}}/>}
     mapElement={<div style={{height:"100%"}}/>}
-    googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${env.process.GOOGLE_API_KEY}`}
-    mapLat={mapLat} 
-    mapLng={mapLng}
+   
+    googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_API_KEY}`}
+    mapLat={props.mapLat? props.mapLat: defaultMapLat} 
+    mapLng={props.mapLng? props.mapLng: defaultMapLng}
     parks = {parks}
     className = "map"/>
     </div>

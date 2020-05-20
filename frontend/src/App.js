@@ -6,8 +6,9 @@ import UserPlaces from "./components/UserPlaces";
 import Home from './components/Home';
 import Layout from './components/layout'
 */
-
+const Login = React.lazy(()=>import('./components/Login'));
 const User = React.lazy(() =>import('./components/User'));
+const Signup = React.lazy(()=>import('./components/Signup'));
 const NewPlace = React.lazy(() =>import('./components/NewPlace'));
 const Home = React.lazy(() =>import('./components/Home'));
 const UserPlaces = React.lazy(() =>import('./components/UserPlaces'));
@@ -15,10 +16,16 @@ const UserPlaces = React.lazy(() =>import('./components/UserPlaces'));
 const App =()=>{
   return(
     <Router>
-        <Suspense fallback={<div className="center"> <LoadingSpinner/></div>}>
+        <Suspense fallback={<div className="d-flex justify-content-center align-middle"> <LoadingSpinner/></div>}>
             <Switch>
             <Route exact path="/">
                 <Home/>
+            </Route>
+            <Route path="/login/">
+                <Login/>
+            </Route>
+            <Route path="/signup">
+                <Signup/>
             </Route>
             <Route path="/places/new">
                 <NewPlace/>
@@ -29,6 +36,8 @@ const App =()=>{
             <Route path="/:userId/places">
                 <UserPlaces/>
             </Route>
+           
+            
         </Switch>
         </Suspense>
         </Router>

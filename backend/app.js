@@ -8,6 +8,17 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  );
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
+
+  next();
+});
+
 app.use('/places', placesRoutes); 
 app.use('/users', usersRoutes)
 app.use((req,res,next)=>{
@@ -23,7 +34,7 @@ app.use((error, req, res, next) => {
   res.json({message: error.message || 'An unknown error occurred!'});
 });
 mongoose
-.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0-vvfpo.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`)
+.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0-vvfpo.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`)
 .then(()=>{app.listen(process.env.PORT || 5000)})
 .catch( err =>{
   console.log(err);

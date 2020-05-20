@@ -54,15 +54,23 @@ z-index: 10;
 }
 .submit-button{
     background-color: $purple;
+    color:white;
     border-color: $purple;
 }
 .submit-button:hover{
+    color:white;
     border-color: $dark-purple;
 }
 .submit-button:active{
+    outline: none !important;
+    box-shadow: none;
+    color:white;
     border-color: $dark-purple;
 }
 .submit-button:focus{
+    outline: none !important;
+    box-shadow: none;
+    color:white;
     border-color: $dark-purple;
 }
 *,
@@ -78,3 +86,31 @@ z-index: 10;
 .step:last-child .line { display: none; }
 .title { line-height: 32px; font-weight: bold; padding-bottom: 10px; }
 .body{ padding-bottom: 10px;}
+.form-control{ 
+background-color: $background;
+border:$background;
+}
+.nav-link{
+    color:$text-color;
+}
+.nav-link:hover{
+    color:$text-color-hover;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: $purple;
+}
+.nav-pills{
+    background-color: $dark-purple;
+}
+.form-control{
+    border: solid $dark 1px;
+}
+select *{
+background-color: $background;
+}
+option:hover{
+    background-color: $dark-purple;
+}
+body .row .d-inline {
+    margin:3px;
+}

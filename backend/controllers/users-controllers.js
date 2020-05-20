@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
-//const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
@@ -20,6 +20,7 @@ const getUsers = async (req, res, next) => {
 };
 
 const signup = async (req, res, next) => {
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return next(
@@ -28,6 +29,9 @@ const signup = async (req, res, next) => {
   }
 
   const { name, email, password } = req.body;
+  console.log(email);
+  console.log(name);
+  console.log(password);
 
   let existingUser;
   try {
@@ -45,6 +49,7 @@ const signup = async (req, res, next) => {
       'User exists already, please login instead.',
       422
     );
+    console.log('User exists already');
     return next(error);
   }
 
@@ -62,7 +67,6 @@ const signup = async (req, res, next) => {
   const createdUser = new User({
     name,
     email,
-    image: req.file.path,
     password: hashedPassword,
     places: []
   });
@@ -77,7 +81,7 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
-  /*let token;
+  let token;
   try {
     token = jwt.sign(
       { userId: createdUser.id, email: createdUser.email },
@@ -90,14 +94,14 @@ const signup = async (req, res, next) => {
       500
     );
     return next(error);
-  }*/
+  }
 
   res
     .status(201)
     .json({ userId: createdUser.id, email: createdUser.email, token: token });
 };
 
-/*const login = async (req, res, next) => {
+const login = async (req, res, next) => {
   const { email, password } = req.body;
 
   let existingUser;
@@ -159,8 +163,8 @@ const signup = async (req, res, next) => {
     email: existingUser.email,
     token: token
   });
-};*/
+};
 
 exports.getUsers = getUsers;
 exports.signup = signup;
-/*exports.login = login;*/
+exports.login = login;

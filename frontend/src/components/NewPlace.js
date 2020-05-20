@@ -3,7 +3,15 @@ import React, { useState } from "react"
 import Layout from "./layout"
 import MapContainer from "./MapContainer"
 
+function onSubmit (){
+//Do the things with the axios request
+
+}
 const NewPlace = ( props ) =>{
+  const [location, setLocation] = useState({lat:0, lng:0});
+  const [type, setType] = useState("");
+  const [condition, setCondition] = useState("ok");
+  const [hours, setHours] = useState({opening: 0, closing: 0});
 return(
 <Layout>
 <div class="step">
@@ -14,7 +22,7 @@ return(
     <div>
         <div class="title">Add location</div>
         <div class="body">
-        <MapContainer/>
+        <MapContainer width="70wh" height="70vh"/>
       </div>
     </div>
     
@@ -29,11 +37,11 @@ return(
         <div class="body">
             <div class="row">
                 <p class="d-inline col-3">Type</p>
-        <input type="text" class="form-control d-inline col-9" placeholder="Steinway grand piano..." aria-label="Steinway grand piano" aria-describedby="basic-addon1"/>
+        <input type="text" class="form-control d-inline col-8" placeholder="Steinway grand piano..." aria-label="Steinway grand piano" aria-describedby="basic-addon1"/>
         </div>
         <div class="row">
-                <p class="d-inline col-3">Condition</p>
-        <input type="text" class="form-control d-inline col-9" placeholder="Used, new..." aria-label="Username" aria-describedby="basic-addon1"/>
+                <p class="d-inline col-3">Condition (Optional)</p>
+        <input type="text" class="form-control d-inline col-8 " placeholder="Used, new..." aria-label="Username" aria-describedby="basic-addon1"/>
         </div>
         <div class="row">
                 <p class="d-inline col-3">Hours</p>
@@ -92,7 +100,7 @@ return(
     </div>
     <div>
         <div class="title"><form>
-           <button type="submit" class="btn btn-primary submit-button">Submit</button>
+           <button onSubmit={onSubmit}type="submit" class="btn btn-primary submit-button">Submit</button>
            </form></div>
         </div>
            

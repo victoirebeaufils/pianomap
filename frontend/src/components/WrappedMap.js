@@ -4,7 +4,7 @@ import {GoogleMap, withScriptjs,withGoogleMap, Marker, InfoWindow} from 'react-g
 
 const Map = props =>{
     const [selectedPark, setSelectedPark] = useState(null);
-return <GoogleMap 
+return <GoogleMap style={{width:'70vw',height:'70vh'}}
 defaultZoom={10} 
 defaultCenter={{lat:-15, lng:12}}
 
