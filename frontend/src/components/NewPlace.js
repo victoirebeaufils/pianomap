@@ -2,16 +2,41 @@ import React, { useState } from "react"
 
 import Layout from "./layout"
 import MapContainer from "./MapContainer"
-
+import LocationSearchInput from './LocationSearchInput';
+import PlacesAutocomplete, {
+    geocodeByAddress,
+    getLatLng,
+  } from 'react-places-autocomplete';
 function onSubmit (){
 //Do the things with the axios request
 
+
+
 }
-const NewPlace = ( props ) =>{
-  const [location, setLocation] = useState({lat:0, lng:0});
-  const [type, setType] = useState("");
-  const [condition, setCondition] = useState("ok");
-  const [hours, setHours] = useState({opening: 0, closing: 0});
+class NewPlace extends React.Component{
+    constructor(props){
+        super();
+this.state = {
+        lat:0,
+        lng:0,
+        type:"",
+        condition: "ok"
+}
+this.handleLocation = this.handleLocation.bind(this);
+    }
+handleLocation = (location) => {
+    console.log("location: " + location);
+  /*  geocodeByAddress(location)
+      .then(results => getLatLng(results[0]))
+      .then(results =>  
+        this.setState({
+        lat: results.lat,
+        lng: results.lng,
+    }))
+    console.log(this.state.lat);
+    console.log(this.state.lng);*/
+}
+render(){
 return(
 <Layout>
 <div class="step">
@@ -21,9 +46,7 @@ return(
     </div>
     <div>
         <div class="title">Add location</div>
-        <div class="body">
-        <MapContainer width="70wh" height="70vh"/>
-      </div>
+        <LocationSearchInput handle={this.handleLocation}/>
     </div>
     
 </div>
@@ -65,5 +88,6 @@ return(
     </Layout>
 
 )
+}
 }
 export default NewPlace;

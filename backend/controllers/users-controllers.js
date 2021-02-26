@@ -29,9 +29,9 @@ const signup = async (req, res, next) => {
   }
 
   const { name, email, password } = req.body;
-  console.log(email);
-  console.log(name);
-  console.log(password);
+  console.log("email:" +email);
+  console.log("name" + name);
+  console.log("password" + password);
 
   let existingUser;
   try {

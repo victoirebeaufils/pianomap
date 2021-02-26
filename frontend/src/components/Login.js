@@ -29,38 +29,23 @@ const handleSubmit = () => {
     console.log("Submission detected");
    console.log("email: " + email);
    console.log("password: " + password);
-
-    if(name == ''){
         //login
         Axios.post('http://localhost:5000/users/login', {
             email: email,
             password:password,
         })
         .then((response) => {
-            auth.login(response.data.userId) 
+            //console.log("id: " + response.data.userId);
+            auth.login(response.data.userId);
 
         }, (error) => {
             console.log(error);
         }
         )
         
-        //let path = `/`;
-        //history.push(path);
-        
-    }
-    else{
-        //signup
-        console.log(email);
-        console.log(name);
-        console.log(password);
-        Axios.post('http://localhost:5000/users/signup', {
-            name: name,
-            email: email,
-            password: password
-        })
         let path = `/`;
         history.push(path);
-    }
+        
   
 }
     return (

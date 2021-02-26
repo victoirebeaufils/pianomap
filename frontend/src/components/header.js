@@ -36,6 +36,11 @@ const Header = () => {
                   
                     </li>
                      )}
+                       {auth.isLoggedIn && (
+        <li className="nav-item">
+          <button onClick={auth.logout}>LOGOUT</button>
+        </li>
+      )}
 
 {!auth.isLoggedIn && (
   <li className="nav-item">

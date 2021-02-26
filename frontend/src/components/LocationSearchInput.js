@@ -1,57 +1,101 @@
 import React from 'react';
+import { useState } from 'react';
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
- 
 class LocationSearchInput extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = { 
     address: '',
-    lat: 0,
-    lng: 0 };
+   location :{
+     lat: 0,
+     lng: 0,
+   },
+   selectedLocation: ''}
+   this.handleChange = this.handleChange.bind(this);
+   this.handleSelectSuggestions = this.handleSelectSuggestions.bind(this);
+   this.handleSelect = this.handleSelect.bind(this);
    
   }
 
 
   handleChange = address => {
-    this.setState({ address });
+    this.setState({ address : address });
   console.log("this is changing")
   
   };
+
+  handleSelectSuggestions = (address)=>{
+    this.setState ({
+     address : address
+    })
+    return address;
+  }
  
   handleSelect = address => {
-    geocodeByAddress(address)
-      .then(results => getLatLng(results[0]))
-      .then(results =>  this.setState({
-        lat: results.lat,
-        lng: results.lng,
-    }))
-      .catch(error => console.error('Error', error));
+    var add = this.handleSelectSuggestions(address);
+    console.log("add:" + add);
+    this.setState({
+      address: add
+    })
+    console.log("address: " + this.state.address)
+    var latitude = 0;
+    var longitude = 0;
+    var that = this;
+    geocodeByAddress(this.state.address)
+    .then(results => getLatLng(results[0]))
+    .then(({ lat, lng }) => {
+   console.log(lat);
+   console.log(lng);
+        latitude= lat;
+        longitude =  lng;
+      })
+      .then(() => {
+        this.setState({
+          location:{
+            lat: latitude,
+            lng: longitude
+          }
+        })
+      });
+
+
+  
+    
+
+      if(this.props.onChange != null) {
       this.props.onChange(this.state.lat, this.state.lng)
-  };
+      this.setState ({
+        selectedLocation: address
+      })
+    
+      }
+      this.props.handle(address);   
+    };
  
   render() {
     return (
       <PlacesAutocomplete
         value={this.state.address}
-        onChange={this.handleChange}
+        onChange={this.handleChange?this.handleChange:null}
         onSelect={this.handleSelect}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
             <div className="input-group search-input">
-            
+            {console.log(this.state.selectedLocation)}
             <input
               {...getInputProps({
                 placeholder: 'Search Places ...',
                 className: 'location-search-input form-control',
               })}
-            />
-             <div class="input-group-append">
-             <button type="button" className="btn btn-dark" onChange={this.props.addMarker}>Add marker</button>
-  </div>
+              //value={this.state.selectedLocation.address != ""? this.state.selectedLocation.address:null}
+            >
+             
+            </input>
             </div>
             <div className="autocomplete-dropdown-container">
               {loading && <div>Loading...</div>}
@@ -68,9 +112,12 @@ class LocationSearchInput extends React.Component {
                     {...getSuggestionItemProps(suggestion, {
                       className,
                       style,
-                    })}
+                    })
+                    
+                  
+                  }
                   >
-                    <span className='suggestion'> {suggestion.description}</span>
+                    <span className='suggestion'   onClick={this.handleSelectSuggestions}> {suggestion.description}</span>
                   </div>
                 );
               })}

@@ -35,7 +35,9 @@ const App =()=>{
       console.log("Is logged in");
     routes = (
         <Switch>
-     
+        <Route exact path="/">
+            <Home/>
+            </Route>
         <Route path="/places/new">
             <NewPlace/>
         </Route>
