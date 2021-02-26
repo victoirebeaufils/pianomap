@@ -1,11 +1,11 @@
 import {BrowserRouter as Router, Route, Switch,Link } from "react-router-dom";
-import React from "react"
+import React, {useContext} from "react"
 import App from "../App";
 import NewPlace from "./NewPlace";
 import UserPlaces from "./UserPlaces";
-
-
+import { AuthContext } from "../context/auth-context";
 const Header = () => {
+  const auth = useContext(AuthContext);
     return(
         
    <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -23,12 +23,31 @@ const Header = () => {
                     
                   <ul className="navbar-nav ml-auto">
 
+                   {auth.isLoggedIn &&( 
                     <li className="nav-item">
                       <Link className="nav-link " to="/places/new">Add piano place</Link>
                     </li>
-                    <li className="nav-item">
+                  
+                   )} 
+    {auth.isLoggedIn &&( 
+<li className="nav-item">
+              
                       <Link className="nav-link " to="/:userId">Account</Link>
+                  
                     </li>
+                     )}
+
+{!auth.isLoggedIn && (
+  <li className="nav-item">
+   <Link className="nav-link " to="/login"> Login</Link>
+   </li>
+)}
+
+{!auth.isLoggedIn && (
+  <li className="nav-item">
+   <Link className="nav-link " to="/signup"> Signup</Link>
+   </li>
+)}
                   </ul>
                 </div>
             </div>

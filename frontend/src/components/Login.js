@@ -1,10 +1,13 @@
-import React, { lazy, useState } from 'react';
+import React, { lazy, useState, useContext } from 'react';
 import Layout from './layout';
 import Axios from 'axios';
 import {useHttpClient} from '../hooks/http-hook'
 import ErrorModal from '../components/ErrorModal';
 import {useHistory} from 'react-router-dom';
+import { AuthContext } from '../context/auth-context';
+
 const Login = (props) => {
+    const auth = useContext(AuthContext);
     const [passwordState,setPasswordState] = useState("password");
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('')
@@ -23,9 +26,10 @@ else{
 
 }
 const handleSubmit = () => {
-
-   
     console.log("Submission detected");
+   console.log("email: " + email);
+   console.log("password: " + password);
+
     if(name == ''){
         //login
         Axios.post('http://localhost:5000/users/login', {
@@ -33,14 +37,16 @@ const handleSubmit = () => {
             password:password,
         })
         .then((response) => {
-            console.log(response);
+            auth.login(response.data.userId) 
 
         }, (error) => {
             console.log(error);
         }
         )
-        let path = `/`;
-        history.push(path);
+        
+        //let path = `/`;
+        //history.push(path);
+        
     }
     else{
         //signup
@@ -67,10 +73,7 @@ const handleSubmit = () => {
                             <a className="nav-link" id="login-tab"href="#login" data-toggle="tab" role="tab"
                             aria-controls="login" aria-selected="true">Login</a>
                         </li>
-                        <li className="nav-item">
-                            <a className="nav-link" id="signup-tab"href="#signup"data-toggle="tab" role="tab"
-                            aria-controls="signup" aria-selected="false">Signup</a>
-                        </li>
+
                     </ul>
                 </nav>
                 <div className="card-body">
@@ -94,41 +97,7 @@ const handleSubmit = () => {
                                    onInput={e=>setPassword(e.target.value)} />
                         </div>
                     </div>
-                    <div class="tab-pane fade"id="signup"role="tabpanel" aria-labelledby="signup-tab">
-                    <a>Name</a>
-                        <div className="input-group">
-                            <input type="text" 
-                                   className="form-control" 
-                                   aria-label="" 
-                                   placeholder="Jean Marie"
-                                   value={name}
-                                   onInput={e=>setName(e.target.value)} />
-                        </div>
-                        <a>Username or email address</a>
-                        <div className="input-group">
-                            <input type="text"
-                                   className="form-control" 
-                                   aria-label="" 
-                                   placeholder="test@test.com"
-                                   value={email} 
-                                   onInput={e=>setEmail(e.target.value)}/>
-                        </div>
-                        <p>Password</p>
-                        <div className="input-group row">
-                          
-                                <div class="col">
-                            <input type={passwordState}
-                                   className="form-control" 
-                                   aria-label="" 
-                                   placeholder="password1234" 
-                                   value={password}
-                                   onInput={e=>setPassword(e.target.value)}/>
-                            </div>
-                            <div className="form-check col">
-    <input type="checkbox" className="form-check-input" id="exampleCheck1" onClick={togglePassword}/>
-    <label className="form-check-label" for="exampleCheck1">Check me out</label>
-  </div></div>
-                        </div>
+                  
                         <button type="submit" class="btn submit-button" onClick={handleSubmit}>Submit</button>
                     </div>
                    
